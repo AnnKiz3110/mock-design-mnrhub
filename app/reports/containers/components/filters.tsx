@@ -5,13 +5,7 @@ import { Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import type { FilterParams } from "@/lib/data-client"
 
@@ -39,14 +33,10 @@ export function Filters({ onFilterChange }: FiltersProps) {
   const [yearTo, setYearTo] = React.useState("2025")
 
   const [trangThai, setTrangThai] = React.useState("Tất cả")
-  const [trachNhiem, setTrachNhiem] = React.useState("Tất cả")
   const [chuKT, setChuKT] = React.useState("Tất cả")
   const [kichCo, setKichCo] = React.useState("Tất cả")
   const [phanLoaiContainer, setPhanLoaiContainer] = React.useState("Tất cả")
-  const [loaiContainer, setLoaiContainer] = React.useState("Tất cả")
   const [payer, setPayer] = React.useState("Tất cả")
-
-  const controlClass = "h-9 text-xs w-full focus:ring-[#2c86ff]"
 
   const handleSearch = () => {
     let effectiveDateFrom = ""
@@ -77,91 +67,103 @@ export function Filters({ onFilterChange }: FiltersProps) {
       dateFrom: effectiveDateFrom,
       dateTo: effectiveDateTo,
       trangThai: trangThai === "Tất cả" ? undefined : trangThai,
-      loaiContainer: loaiContainer === "Tất cả" ? undefined : loaiContainer,
+      kichCo: kichCo === "Tất cả" ? undefined : kichCo,
       payer: payer === "Tất cả" ? undefined : payer,
     })
   }
 
   return (
-    <div className="bg-white border rounded-xl p-4 space-y-4">
-      {/* GRID 2 CỘT: BÊN TRÁI = THỜI GIAN, BÊN PHẢI = FILTER KHÁC */}
-      <div className="grid gap-2 md:grid-cols-12">
-        {/* ===== BÊN TRÁI: TIME RANGE ===== */}
-        <div className="md:col-span-5 space-y-3 max-w-md">
-          <Tabs
-            value={timeRange}
-            onValueChange={(v) => setTimeRange(v as any)}
-            className="w-full"
-          >
-            <TabsList className="grid grid-cols-4 h-9 w-full">
-              <TabsTrigger value="day" className="text-xs">
-                Ngày
-              </TabsTrigger>
-              <TabsTrigger value="month" className="text-xs">
-                Tháng
-              </TabsTrigger>
-              <TabsTrigger value="quarter" className="text-xs">
-                Quý
-              </TabsTrigger>
-              <TabsTrigger value="year" className="text-xs">
-                Năm
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+      {/* ===== LỌC THEO THỜI GIAN ===== */}
+      <div className="mb-6">
+        <h3 className="text-sm font-semibold text-gray-700 mb-[-10]">Lọc theo thời gian</h3>
 
-          {/* các trường thời gian – cùng độ rộng với TabsList */}
+        <div className="grid grid-cols-6 gap-4 items-end">
+          {/* Tabs - takes 4 columns */}
+          <div className="col-span-4">
+            <Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as any)}>
+              <TabsList className="grid grid-cols-4 h-11 bg-gray-100/80 p-1 rounded-xl w-full">
+                <TabsTrigger
+                  value="day"
+                  className="text-sm font-medium rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
+                >
+                  Ngày
+                </TabsTrigger>
+                <TabsTrigger
+                  value="month"
+                  className="text-sm font-medium rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
+                >
+                  Tháng
+                </TabsTrigger>
+                <TabsTrigger
+                  value="quarter"
+                  className="text-sm font-medium rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
+                >
+                  Quý
+                </TabsTrigger>
+                <TabsTrigger
+                  value="year"
+                  className="text-sm font-medium rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
+                >
+                  Năm
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+
+          {/* Date Range Inputs - takes 2 columns, equal widths */}
           {timeRange === "day" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
-              <div className="space-y-1">
-                <Label className="text-xs text-blue-600">Từ ngày</Label>
+            <>
+              <div className="space-y-2 col-span-1">
+                <Label className="text-xs font-medium text-gray-600">Từ ngày</Label>
                 <Input
                   type="date"
                   value={dateFrom}
                   onChange={(e) => setDateFrom(e.target.value)}
-                  className={controlClass}
+                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
                 />
               </div>
-              <div className="space-y-1">
-                <Label className="text-xs text-blue-600">Đến ngày</Label>
+              <div className="space-y-2 col-span-1">
+                <Label className="text-xs font-medium text-gray-600">Đến ngày</Label>
                 <Input
                   type="date"
                   value={dateTo}
                   onChange={(e) => setDateTo(e.target.value)}
-                  className={controlClass}
+                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
                 />
               </div>
-            </div>
+            </>
           )}
 
           {timeRange === "month" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
-              <div className="space-y-1">
-                <Label className="text-xs text-blue-600">Từ tháng</Label>
+            <>
+              <div className="space-y-2 col-span-1">
+                <Label className="text-xs font-medium text-gray-600">Từ tháng</Label>
                 <Input
                   value={monthFrom}
                   onChange={(e) => setMonthFrom(e.target.value)}
                   placeholder="MM/YYYY"
-                  className={controlClass}
+                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
                 />
               </div>
-              <div className="space-y-1">
-                <Label className="text-xs text-blue-600">Đến tháng</Label>
+              <div className="space-y-2 col-span-1">
+                <Label className="text-xs font-medium text-gray-600">Đến tháng</Label>
                 <Input
                   value={monthTo}
                   onChange={(e) => setMonthTo(e.target.value)}
                   placeholder="MM/YYYY"
-                  className={controlClass}
+                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
                 />
               </div>
-            </div>
+            </>
           )}
 
           {timeRange === "quarter" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
-              <div className="space-y-1">
-                <Label className="text-xs text-blue-600">Quý</Label>
+            <>
+              <div className="space-y-2 col-span-1">
+                <Label className="text-xs font-medium text-gray-600">Quý</Label>
                 <Select value={quarter} onValueChange={setQuarter}>
-                  <SelectTrigger className={controlClass}>
+                  <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -172,50 +174,57 @@ export function Filters({ onFilterChange }: FiltersProps) {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="space-y-1">
-                <Label className="text-xs text-blue-600">Năm</Label>
+              <div className="space-y-2 col-span-1">
+                <Label className="text-xs font-medium text-gray-600">Năm</Label>
                 <Input
                   value={quarterYear}
                   onChange={(e) => setQuarterYear(e.target.value)}
                   placeholder="YYYY"
-                  className={controlClass}
+                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
                 />
               </div>
-            </div>
+            </>
           )}
 
           {timeRange === "year" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
-              <div className="space-y-1">
-                <Label className="text-xs text-blue-600">Từ năm</Label>
+            <>
+              <div className="space-y-2 col-span-1">
+                <Label className="text-xs font-medium text-gray-600">Từ năm</Label>
                 <Input
                   value={yearFrom}
                   onChange={(e) => setYearFrom(e.target.value)}
                   placeholder="YYYY"
-                  className={controlClass}
+                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
                 />
               </div>
-              <div className="space-y-1">
-                <Label className="text-xs text-blue-600">Đến năm</Label>
+              <div className="space-y-2 col-span-1">
+                <Label className="text-xs font-medium text-gray-600">Đến năm</Label>
                 <Input
                   value={yearTo}
                   onChange={(e) => setYearTo(e.target.value)}
                   placeholder="YYYY"
-                  className={controlClass}
+                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
                 />
               </div>
-            </div>
+            </>
           )}
         </div>
+      </div>
 
-        {/* ===== BÊN PHẢI: CÁC FILTER KHÁC + NÚT TRA CỨU ===== */}
-        <div className="md:col-span-7 flex flex-col gap-3">
-          {/* 3 combobox / 1 hàng, độ dài bằng nhau */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            <div className="space-y-1">
-              <Label className="text-xs">Trạng thái *</Label>
+      {/* Divider between two filter sections */}
+      <div className="h-px bg-gray-200 mb-6" />
+
+      {/* ===== LỌC THEO TIÊU CHÍ ===== */}
+      <div>
+        <h3 className="text-sm font-semibold text-gray-700 mb-4">Lọc theo tiêu chí</h3>
+
+        <div className="space-y-4">
+          {/* First row: 3 filters with separators */}
+          <div className="grid grid-cols-3 gap-4 items-end">
+            <div className="space-y-2">
+              <Label className="text-xs font-medium text-gray-600">Trạng thái</Label>
               <Select value={trangThai} onValueChange={setTrangThai}>
-                <SelectTrigger className={controlClass}>
+                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -226,10 +235,12 @@ export function Filters({ onFilterChange }: FiltersProps) {
               </Select>
             </div>
 
-            <div className="space-y-1">
-              <Label className="text-xs">Hãng tàu</Label>
+            <div className="space-y-2 relative">
+              {/* Separator before this field */}
+              <div className="absolute -left-2 bottom-[-10] w-px h-11 bg-gray-200" />
+              <Label className="text-xs font-medium text-gray-600">Hãng tàu</Label>
               <Select value={chuKT} onValueChange={setChuKT}>
-                <SelectTrigger className={controlClass}>
+                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -242,10 +253,12 @@ export function Filters({ onFilterChange }: FiltersProps) {
               </Select>
             </div>
 
-            <div className="space-y-1">
-              <Label className="text-xs">Kích cỡ</Label>
+            <div className="space-y-2 relative">
+              {/* Separator before this field */}
+              <div className="absolute -left-2 bottom-[-10] w-px h-11 bg-gray-200" />
+              <Label className="text-xs font-medium text-gray-600">Kích cỡ</Label>
               <Select value={kichCo} onValueChange={setKichCo}>
-                <SelectTrigger className={controlClass}>
+                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -256,11 +269,14 @@ export function Filters({ onFilterChange }: FiltersProps) {
                 </SelectContent>
               </Select>
             </div>
+          </div>
 
-            <div className="space-y-1">
-              <Label className="text-xs">Tình trạng container</Label>
+          {/* Second row: 2 filters with separator */}
+          <div className="grid grid-cols-3 gap-4 items-end">
+            <div className="space-y-2">
+              <Label className="text-xs font-medium text-gray-600">Tình trạng</Label>
               <Select value={phanLoaiContainer} onValueChange={setPhanLoaiContainer}>
-                <SelectTrigger className={controlClass}>
+                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -269,10 +285,12 @@ export function Filters({ onFilterChange }: FiltersProps) {
               </Select>
             </div>
 
-            <div className="space-y-1">
-              <Label className="text-xs">ĐTTT</Label>
+            <div className="space-y-2 relative">
+              {/* Separator before this field */}
+              <div className="absolute -left-2 bottom-[-10] w-px h-11 bg-gray-200" />
+              <Label className="text-xs font-medium text-gray-600">ĐTTT</Label>
               <Select value={payer} onValueChange={setPayer}>
-                <SelectTrigger className={controlClass}>
+                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -284,16 +302,17 @@ export function Filters({ onFilterChange }: FiltersProps) {
                 </SelectContent>
               </Select>
             </div>
+
+            {/* Empty space to maintain 3-column grid alignment */}
+            <div />
           </div>
 
-          {/* nút tra cứu – sát cạnh dưới, bên phải */}
-          <div className="flex justify-end">
+          <div className="flex justify-end pt-2">
             <Button
               onClick={handleSearch}
-              size="sm"
-              className="bg-[#2c86ff] hover:bg-[#1568db] text-white h-9 px-6"
+              className="h-11 px-8 bg-[#2c86ff] hover:bg-[#1a6edb] text-white rounded-xl shadow-sm font-medium"
             >
-              <Search className="h-3 w-3 mr-1" />
+              <Search className="h-4 w-4 mr-2" />
               Tra cứu
             </Button>
           </div>
