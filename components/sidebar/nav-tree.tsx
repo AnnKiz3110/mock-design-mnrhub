@@ -2,8 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { ChevronDown, Search, FileBarChart2, BarChart3, Settings, LayoutDashboard } from "lucide-react"
+import { usePathname } from 'next/navigation'
+import { ChevronDown, Search, FileBarChart2, BarChart3, Settings, LayoutDashboard } from 'lucide-react'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
@@ -43,14 +43,16 @@ const navItems: NavItem[] = [
     items: [
       { title: "Giám định sửa chữa container", href: "/reports/inspection" },
       { title: "Báo cáo vệ sinh & sửa chữa container", href: "/reports/containers" },
+      { title: "Báo cáo Gate Out container", href: "/reports/gate-out" },
+      { title: "Báo cáo giám định", href: "/reports/appraisal" },
+      { title: "Báo cáo sản lượng M&R", href: "/reports/production-summary" },
+      { title: "Báo cáo danh sách container thu cược", href: "/reports/container-inventory" },
+      { title: "Báo cáo sản lượng theo hãng tàu", href: "/reports/production-by-carrier" },
+      { title: "Báo cáo sản lượng theo tác nghiệp", href: "/reports/production-by-operation" },
       { title: "Danh sách container thu cược", href: "/reports/container-list" },
       { title: "Báo cáo tồn bãi", href: "/reports/inventory" },
       { title: "Báo cáo tồn bãi theo tình trạng", href: "/reports/inventory-status" },
-      { title: "Báo cáo sản lượng M&R", href: "/reports/mr-volume" },
       { title: "Doanh thu sửa chữa", href: "/reports/repair-revenue" },
-      { title: "Báo cáo Gate Out container", href: "/reports/gate-out" },
-      { title: "Báo cáo sản lượng theo tác nghiệp", href: "/reports/operation-volume" },
-      { title: "Báo cáo sản lượng theo hãng tàu", href: "/reports/shipping-volume" },
     ],
   },
   {

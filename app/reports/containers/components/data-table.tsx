@@ -147,7 +147,7 @@ export function DataTable({ data }: DataTableProps) {
           <div className="flex justify-center">
             <Badge
               variant={status === "Vệ sinh" ? "default" : "secondary"}
-              className={`text-xs whitespace-nowrap ${status === "Vệ sinh" ? "bg-blue-500 hover:bg-blue-600" : "bg-orange-500 hover:bg-orange-600"}`}
+              className={`text-xs whitespace-nowrap ${status === "Vệ sinh" ? "bg-blue-500 hover:bg-blue-600" : "bg-orange-200 hover:bg-orange-300"}`}
             >
               {status}
             </Badge>
@@ -321,25 +321,28 @@ export function DataTable({ data }: DataTableProps) {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="border-b border-gray-200">
-                {headerGroup.headers.map((header) => (
-                  <TableHead
-                    key={header.id}
-                    draggable={header.column.getCanSort()}
-                    onDragStart={() => handleDragStart(header.column.id)}
-                    onDragOver={handleDragOver}
-                    onDrop={() => handleDrop(header.column.id)}
-                    className={`h-10 font-semibold text-sm whitespace-nowrap border-r border-gray-200 last:border-r-0 bg-[#2c86ff]/10 text-[#2c86ff] text-center group relative ${
-                      draggedColumn === header.column.id ? "opacity-50" : ""
-                    } ${header.column.getCanSort() ? "cursor-move" : ""}`}
-                  >
-                    <div className="flex items-center justify-center gap-1">
-                      {header.column.getCanSort() && (
-                        <GripVertical className="h-3.5 w-3.5 text-[#2c86ff]/50 group-hover:text-[#2c86ff]" />
-                      )}
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    </div>
-                  </TableHead>
-                ))}
+                {headerGroup.headers.map((header) => {
+                  const isDraggable = header.column.id !== "id" && header.column.getCanSort()
+                  return (
+                    <TableHead
+                      key={header.id}
+                      draggable={isDraggable}
+                      onDragStart={() => isDraggable && handleDragStart(header.column.id)}
+                      onDragOver={isDraggable ? handleDragOver : undefined}
+                      onDrop={() => isDraggable && handleDrop(header.column.id)}
+                      className={`h-10 font-semibold text-sm whitespace-nowrap border-r border-gray-200 last:border-r-0 bg-[#2c86ff]/10 text-[#2c86ff] text-center group relative ${
+                        draggedColumn === header.column.id ? "opacity-50" : ""
+                      } ${isDraggable ? "cursor-move" : ""}`}
+                    >
+                      <div className="flex items-center justify-center gap-1">
+                        {isDraggable && (
+                          <GripVertical className="h-3.5 w-3.5 text-[#2c86ff]/50 group-hover:text-[#2c86ff]" />
+                        )}
+                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      </div>
+                    </TableHead>
+                  )
+                })}
               </TableRow>
             ))}
           </TableHeader>

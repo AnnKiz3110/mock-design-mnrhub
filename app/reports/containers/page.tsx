@@ -10,8 +10,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Filters } from "./components/filters"
-import { KPICards } from "./components/kpi-cards"
+import { SummaryTable } from "./components/summary-table"
 import { DataTable } from "./components/data-table"
 import { getContainerReports, getKPIStats, type FilterParams } from "@/lib/data-client"
 
@@ -27,7 +28,7 @@ export default function ContainersReportPage() {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       {/* Breadcrumb */}
       <Breadcrumb>
         <BreadcrumbList>
@@ -43,20 +44,32 @@ export default function ContainersReportPage() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="grid grid-cols-1 lg:grid-cols-10 gap-4">
-        {/* Filters - takes 6/10 width */}
-        <div className="lg:col-span-6">
-          <Filters onFilterChange={handleFilterChange} />
-        </div>
+      <Filters onFilterChange={handleFilterChange} />
 
-        {/* KPI Cards - takes 4/10 width */}
-        <div className="lg:col-span-4">
-          <KPICards stats={stats} />
-        </div>
-      </div>
-
-      {/* Data Table - full width below */}
-      <DataTable data={data} />
+      <Tabs defaultValue="summary" className="w-full">
+        <TabsList className="grid w-full max-w-md grid-cols-2 h-11 bg-gray-100 p-1 rounded-xl">
+          <TabsTrigger 
+            value="summary" 
+            className="rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all font-medium"
+          >
+            Thống kê tổng hợp
+          </TabsTrigger>
+          <TabsTrigger 
+            value="detail" 
+            className="rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all font-medium"
+          >
+            Chi tiết
+          </TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="summary" className="mt-4">
+          <SummaryTable stats={stats} />
+        </TabsContent>
+        
+        <TabsContent value="detail" className="mt-4">
+          <DataTable data={data} />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }
