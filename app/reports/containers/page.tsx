@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronRight } from "lucide-react"
+import { ChevronRight } from 'lucide-react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -43,16 +43,20 @@ export default function ContainersReportPage() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      {/* Filters */}
-      <Filters onFilterChange={handleFilterChange} />
+      <div className="grid grid-cols-1 lg:grid-cols-10 gap-4">
+        {/* Filters - takes 6/10 width */}
+        <div className="lg:col-span-6">
+          <Filters onFilterChange={handleFilterChange} />
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-2">
-        {/* KPI Cards */}
-        <KPICards stats={stats} />
-
-        {/* Data Table */}
-        <DataTable data={data} />
+        {/* KPI Cards - takes 4/10 width */}
+        <div className="lg:col-span-4">
+          <KPICards stats={stats} />
+        </div>
       </div>
+
+      {/* Data Table - full width below */}
+      <DataTable data={data} />
     </div>
   )
 }

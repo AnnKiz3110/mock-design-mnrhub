@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Search } from "lucide-react"
+import { Search } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -73,63 +73,61 @@ export function Filters({ onFilterChange }: FiltersProps) {
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+    <div className="bg-white border border-gray-200 rounded-2xl p-3 shadow-sm h-full flex flex-col">
       {/* ===== LỌC THEO THỜI GIAN ===== */}
-      <div className="mb-6">
-        <h3 className="text-sm font-semibold text-gray-700 mb-[-10]">Lọc theo thời gian</h3>
+      <div className="mb-3">
+        <h3 className="text-sm font-semibold text-gray-700 mb-2">Lọc theo thời gian</h3>
 
-        <div className="grid grid-cols-6 gap-4 items-end">
-          {/* Tabs - takes 4 columns */}
-          <div className="col-span-4">
-            <Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as any)}>
-              <TabsList className="grid grid-cols-4 h-11 bg-gray-100/80 p-1 rounded-xl w-full">
-                <TabsTrigger
-                  value="day"
-                  className="text-sm font-medium rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
-                >
-                  Ngày
-                </TabsTrigger>
-                <TabsTrigger
-                  value="month"
-                  className="text-sm font-medium rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
-                >
-                  Tháng
-                </TabsTrigger>
-                <TabsTrigger
-                  value="quarter"
-                  className="text-sm font-medium rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
-                >
-                  Quý
-                </TabsTrigger>
-                <TabsTrigger
-                  value="year"
-                  className="text-sm font-medium rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
-                >
-                  Năm
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
+        {/* Tabs nhỏ lại */}
+        <Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as any)}>
+          <TabsList className="grid grid-cols-4 h-9 bg-gray-100/80 p-1 rounded-xl w-full">
+            <TabsTrigger
+              value="day"
+              className="text-xs px-2 py-1 rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
+            >
+              Ngày
+            </TabsTrigger>
+            <TabsTrigger
+              value="month"
+              className="text-xs px-2 py-1 rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
+            >
+              Tháng
+            </TabsTrigger>
+            <TabsTrigger
+              value="quarter"
+              className="text-xs px-2 py-1 rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
+            >
+              Quý
+            </TabsTrigger>
+            <TabsTrigger
+              value="year"
+              className="text-xs px-2 py-1 rounded-lg data-[state=active]:bg-[#2c86ff] data-[state=active]:text-white data-[state=active]:shadow-md transition-all"
+            >
+              Năm
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
 
-          {/* Date Range Inputs - takes 2 columns, equal widths */}
+        {/* Ô nhập thời gian nằm bên dưới Tabs */}
+        <div className="mt-2 grid grid-cols-2 gap-2">
           {timeRange === "day" && (
             <>
-              <div className="space-y-2 col-span-1">
+              <div className="space-y-1">
                 <Label className="text-xs font-medium text-gray-600">Từ ngày</Label>
                 <Input
                   type="date"
                   value={dateFrom}
                   onChange={(e) => setDateFrom(e.target.value)}
-                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
+                  className="h-9 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] text-xs"
                 />
               </div>
-              <div className="space-y-2 col-span-1">
+              <div className="space-y-1">
                 <Label className="text-xs font-medium text-gray-600">Đến ngày</Label>
                 <Input
                   type="date"
                   value={dateTo}
                   onChange={(e) => setDateTo(e.target.value)}
-                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
+                  className="h-9 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] text-xs"
                 />
               </div>
             </>
@@ -137,22 +135,22 @@ export function Filters({ onFilterChange }: FiltersProps) {
 
           {timeRange === "month" && (
             <>
-              <div className="space-y-2 col-span-1">
+              <div className="space-y-1">
                 <Label className="text-xs font-medium text-gray-600">Từ tháng</Label>
                 <Input
                   value={monthFrom}
                   onChange={(e) => setMonthFrom(e.target.value)}
                   placeholder="MM/YYYY"
-                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
+                  className="h-9 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] text-xs"
                 />
               </div>
-              <div className="space-y-2 col-span-1">
+              <div className="space-y-1">
                 <Label className="text-xs font-medium text-gray-600">Đến tháng</Label>
                 <Input
                   value={monthTo}
                   onChange={(e) => setMonthTo(e.target.value)}
                   placeholder="MM/YYYY"
-                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
+                  className="h-9 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] text-xs"
                 />
               </div>
             </>
@@ -160,10 +158,10 @@ export function Filters({ onFilterChange }: FiltersProps) {
 
           {timeRange === "quarter" && (
             <>
-              <div className="space-y-2 col-span-1">
+              <div className="space-y-1">
                 <Label className="text-xs font-medium text-gray-600">Quý</Label>
                 <Select value={quarter} onValueChange={setQuarter}>
-                  <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
+                  <SelectTrigger className="h-9 rounded-xl border-gray-300 focus:ring-[#2c86ff] text-xs">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -174,13 +172,13 @@ export function Filters({ onFilterChange }: FiltersProps) {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="space-y-2 col-span-1">
+              <div className="space-y-1">
                 <Label className="text-xs font-medium text-gray-600">Năm</Label>
                 <Input
                   value={quarterYear}
                   onChange={(e) => setQuarterYear(e.target.value)}
                   placeholder="YYYY"
-                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
+                  className="h-9 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] text-xs"
                 />
               </div>
             </>
@@ -188,22 +186,22 @@ export function Filters({ onFilterChange }: FiltersProps) {
 
           {timeRange === "year" && (
             <>
-              <div className="space-y-2 col-span-1">
+              <div className="space-y-1">
                 <Label className="text-xs font-medium text-gray-600">Từ năm</Label>
                 <Input
                   value={yearFrom}
                   onChange={(e) => setYearFrom(e.target.value)}
                   placeholder="YYYY"
-                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
+                  className="h-9 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] text-xs"
                 />
               </div>
-              <div className="space-y-2 col-span-1">
+              <div className="space-y-1">
                 <Label className="text-xs font-medium text-gray-600">Đến năm</Label>
                 <Input
                   value={yearTo}
                   onChange={(e) => setYearTo(e.target.value)}
                   placeholder="YYYY"
-                  className="h-11 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] w-full"
+                  className="h-9 rounded-xl border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] text-xs"
                 />
               </div>
             </>
@@ -211,113 +209,112 @@ export function Filters({ onFilterChange }: FiltersProps) {
         </div>
       </div>
 
-      {/* Divider between two filter sections */}
-      <div className="h-px bg-gray-200 mb-6" />
 
-      {/* ===== LỌC THEO TIÊU CHÍ ===== */}
-      <div>
-        <h3 className="text-sm font-semibold text-gray-700 mb-4">Lọc theo tiêu chí</h3>
+{/* ===== LỌC THEO TIÊU CHÍ ===== */}
+<div className="flex-1 flex flex-col">
+  <h3 className="text-sm font-semibold text-gray-700 mb-2">Lọc theo tiêu chí</h3>
 
-        <div className="space-y-4">
-          {/* First row: 3 filters with separators */}
-          <div className="grid grid-cols-3 gap-4 items-end">
-            <div className="space-y-2">
-              <Label className="text-xs font-medium text-gray-600">Trạng thái</Label>
-              <Select value={trangThai} onValueChange={setTrangThai}>
-                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Tất cả">Tất cả</SelectItem>
-                  <SelectItem value="Vệ sinh">Vệ sinh</SelectItem>
-                  <SelectItem value="Sửa chữa">Sửa chữa</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+  <div className="space-y-2 flex-1">
+    <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-2 items-end">
+      <div className="space-y-1">
+        <Label className="text-xs font-medium text-gray-600">Trạng thái</Label>
+        <Select value={trangThai} onValueChange={setTrangThai}>
+          <SelectTrigger className="h-9 w-55 rounded-xl border-gray-300 focus:ring-[#2c86ff] text-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Tất cả">Tất cả</SelectItem>
+            <SelectItem value="Vệ sinh">Vệ sinh</SelectItem>
+            <SelectItem value="Sửa chữa">Sửa chữa</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
-            <div className="space-y-2 relative">
-              {/* Separator before this field */}
-              <div className="absolute -left-2 bottom-[-10] w-px h-11 bg-gray-200" />
-              <Label className="text-xs font-medium text-gray-600">Hãng tàu</Label>
-              <Select value={chuKT} onValueChange={setChuKT}>
-                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Tất cả">Tất cả</SelectItem>
-                  <SelectItem value="CMA">CMA</SelectItem>
-                  <SelectItem value="MSC">MSC</SelectItem>
-                  <SelectItem value="ZIM">ZIM</SelectItem>
-                  <SelectItem value="MAE">MAE</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+      <div className="h-9 w-px bg-gray-300 -mx-4"></div>
 
-            <div className="space-y-2 relative">
-              {/* Separator before this field */}
-              <div className="absolute -left-2 bottom-[-10] w-px h-11 bg-gray-200" />
-              <Label className="text-xs font-medium text-gray-600">Kích cỡ</Label>
-              <Select value={kichCo} onValueChange={setKichCo}>
-                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Tất cả">Tất cả</SelectItem>
-                  <SelectItem value="20">20&apos;</SelectItem>
-                  <SelectItem value="40">40&apos;</SelectItem>
-                  <SelectItem value="45">45&apos;</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+      <div className="space-y-1">
+        <Label className="text-xs font-medium text-gray-600">Hãng tàu</Label>
+        <Select value={chuKT} onValueChange={setChuKT}>
+          <SelectTrigger className="h-9 w-55 rounded-xl border-gray-300 focus:ring-[#2c86ff] text-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Tất cả">Tất cả</SelectItem>
+            <SelectItem value="CMA">CMA</SelectItem>
+            <SelectItem value="MSC">MSC</SelectItem>
+            <SelectItem value="ZIM">ZIM</SelectItem>
+            <SelectItem value="MAE">MAE</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
-          {/* Second row: 2 filters with separator */}
-          <div className="grid grid-cols-3 gap-4 items-end">
-            <div className="space-y-2">
-              <Label className="text-xs font-medium text-gray-600">Tình trạng</Label>
-              <Select value={phanLoaiContainer} onValueChange={setPhanLoaiContainer}>
-                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Tất cả">Tất cả</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+      <div className="h-9 w-px bg-gray-300 -mx-4"></div>
 
-            <div className="space-y-2 relative">
-              {/* Separator before this field */}
-              <div className="absolute -left-2 bottom-[-10] w-px h-11 bg-gray-200" />
-              <Label className="text-xs font-medium text-gray-600">ĐTTT</Label>
-              <Select value={payer} onValueChange={setPayer}>
-                <SelectTrigger className="h-11 rounded-xl border-gray-300 focus:ring-[#2c86ff] w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Tất cả">Tất cả</SelectItem>
-                  <SelectItem value="Owner">Owner</SelectItem>
-                  <SelectItem value="C">C</SelectItem>
-                  <SelectItem value="D">D</SelectItem>
-                  <SelectItem value="S">S</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Empty space to maintain 3-column grid alignment */}
-            <div />
-          </div>
-
-          <div className="flex justify-end pt-2">
-            <Button
-              onClick={handleSearch}
-              className="h-11 px-8 bg-[#2c86ff] hover:bg-[#1a6edb] text-white rounded-xl shadow-sm font-medium"
-            >
-              <Search className="h-4 w-4 mr-2" />
-              Tra cứu
-            </Button>
-          </div>
-        </div>
+      <div className="space-y-1">
+        <Label className="text-xs font-medium text-gray-600">Kích cỡ</Label>
+        <Select value={kichCo} onValueChange={setKichCo}>
+          <SelectTrigger className="h-9 w-55 rounded-xl border-gray-300 focus:ring-[#2c86ff] text-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Tất cả">Tất cả</SelectItem>
+            <SelectItem value="20">20&apos;</SelectItem>
+            <SelectItem value="40">40&apos;</SelectItem>
+            <SelectItem value="45">45&apos;</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
-  )
-}
+
+    <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-2 items-end">
+      <div className="space-y-1">
+        <Label className="text-xs font-medium text-gray-600">Tình trạng</Label>
+        <Select value={phanLoaiContainer} onValueChange={setPhanLoaiContainer}>
+          <SelectTrigger className="h-9 w-55 rounded-xl border-gray-300 focus:ring-[#2c86ff] text-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Tất cả">Tất cả</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="h-9 w-px bg-gray-300 -mx-4"></div>
+
+      <div className="space-y-1">
+        <Label className="text-xs font-medium text-gray-600">ĐTTT</Label>
+        <Select value={payer} onValueChange={setPayer}>
+          <SelectTrigger className="h-9 w-55 rounded-xl border-gray-300 focus:ring-[#2c86ff] text-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Tất cả">Tất cả</SelectItem>
+            <SelectItem value="Owner">Owner</SelectItem>
+            <SelectItem value="C">C</SelectItem>
+            <SelectItem value="D">D</SelectItem>
+            <SelectItem value="S">S</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+
+      {/* Empty slot for future expansion */}
+      <div className="space-y-1">
+        {/* Placeholder for 6th or 7th criteria */}
+      </div>
+    </div>
+
+    <div className="flex justify-end pt-1 mt-auto">
+      <Button
+        onClick={handleSearch}
+        className="h-8 px-4 bg-[#2c86ff] hover:bg-[#1a6edb] text-white rounded-xl shadow-sm font-medium text-xs"
+      >
+        <Search className="h-3.5 w-3.5 mr-1.5" />
+        Tra cứu
+      </Button>
+    </div>
+  </div>
+</div>
+      </div>
+    )
+  }

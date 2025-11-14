@@ -12,7 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, Download, Printer, Search } from "lucide-react"
+import { ArrowUpDown, Download, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -25,11 +25,7 @@ import { exportToCSV, exportToExcel, exportToPDF } from "@/lib/export"
 interface DataTableProps {
   data: ContainerReport[]
 }
-const handlePrint = () => {
-    // đơn giản là in luôn, nếu sau này muốn in riêng vùng table
-    // có thể dùng một component print chuyên biệt
-    window.print()
-  }
+
 export function DataTable({ data }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -159,16 +155,7 @@ export function DataTable({ data }: DataTableProps) {
             />
           </div>
         </div>
-         <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handlePrint}
-            className="gap-2 bg-transparent h-9"
-          >
-            <Printer className="h-3.5 w-3.5" />
-            <span className="text-sm">In</span>
-          </Button>
+      
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -184,7 +171,6 @@ export function DataTable({ data }: DataTableProps) {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </div>
 
       {/* Table */}
       <div className="overflow-x-auto">
