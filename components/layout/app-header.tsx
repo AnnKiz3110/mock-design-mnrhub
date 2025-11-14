@@ -18,7 +18,7 @@ interface AppHeaderProps {
 
 export function AppHeader({ onToggleSidebar }: AppHeaderProps) {
   return (
-    <header className="sticky top-0 z-30 h-16 bg-gradient-to-r from-[#2c86ff] to-[#4a9dff] shadow-md">
+    <header className="sticky top-0 z-50 h-16 bg-gradient-to-r from-[#2c86ff] to-[#4a9dff] shadow-md">
       <div className="flex items-center justify-between h-full px-4 gap-4">
         {/* Left side: Menu + Logo + Title */}
         <div className="flex items-center gap-3">

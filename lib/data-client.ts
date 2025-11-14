@@ -3,15 +3,25 @@ import containersData from "@/data/reports-containers.json"
 export interface ContainerReport {
   id: number
   soContainer: string
+  hangTau: string
   chuKT: string
   iso: string
   plCont: string
   ngayVaoBai: string
+  viTri: string
+  ngayBaoGia: string
+  ngayHTDuyet: string
+  ngayHoanTat: string
+  soBaoGia: string
+  payer: string
   ngayRaBai: string
   trangThai: string
   kichCo: string
   loaiContainer: string
-  payer: string
+  vssc: string
+  gio: string
+  tongTien: string
+  donViThucHien: string
 }
 
 export interface FilterParams {

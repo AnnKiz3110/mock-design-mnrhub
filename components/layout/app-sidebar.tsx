@@ -14,7 +14,7 @@ export function AppSidebar({ isOpen }: AppSidebarProps) {
         isOpen ? "w-64" : "w-16",
       )}
     >
-      <div className="flex flex-col h-full overflow-hidden">
+      <div className="flex flex-col h-full overflow-y-hidden">
         {/* Navigation */}
         <div className="flex-1 overflow-y-auto px-2">
           <NavTree isCollapsed={!isOpen} />

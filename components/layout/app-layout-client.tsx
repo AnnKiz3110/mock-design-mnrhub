@@ -9,13 +9,13 @@ export function AppLayoutClient({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50">
+    <div className="flex min-h-screen flex-col bg-gray-5">
       <AppHeader onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 ">
         <AppSidebar isOpen={isSidebarOpen} />
 
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-6 overflow-x-hidden">{children}</main>
       </div>
 
       <AppFooter />
