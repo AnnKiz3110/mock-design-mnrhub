@@ -271,35 +271,9 @@ export function Filters({ onFilterChange }: FiltersProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2">
-                <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-600">Tình trạng</Label>
-                  <Select value={phanLoaiContainer} onValueChange={setPhanLoaiContainer}>
-                    <SelectTrigger className={`${fieldClass} w-36`}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Tất cả">Tất cả</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+             
 
-                <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-600">ĐTTT (Payer)</Label>
-                  <Select value={payer} onValueChange={setPayer}>
-                    <SelectTrigger className={`${fieldClass} w-36`}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Tất cả">Tất cả</SelectItem>
-                      <SelectItem value="Owner">Owner</SelectItem>
-                      <SelectItem value="C">C</SelectItem>
-                      <SelectItem value="D">D</SelectItem>
-                      <SelectItem value="S">S</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+               
             </div>
           </fieldset>
         </div>

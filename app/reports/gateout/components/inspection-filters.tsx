@@ -1,20 +1,20 @@
 "use client"
 
 import * as React from "react"
-import { Search } from "lucide-react"
+import { Search } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card } from "@/components/ui/card"
-import type { FilterParams } from "@/lib/data-client"
+import type { RepairInspectionFilterParams } from "@/lib/data-client"
 
-interface FiltersProps {
-  onFilterChange: (filters: FilterParams) => void
+interface InspectionFiltersProps {
+  onFilterChange: (filters: RepairInspectionFilterParams) => void
 }
 
-export function Filters({ onFilterChange }: FiltersProps) {
+export function InspectionFilters({ onFilterChange }: InspectionFiltersProps) {
   const [timeRange, setTimeRange] = React.useState<"day" | "month" | "quarter" | "year">("day")
 
   // Ngày
@@ -34,12 +34,12 @@ export function Filters({ onFilterChange }: FiltersProps) {
   const [yearTo, setYearTo] = React.useState("2025")
 
   const [trangThai, setTrangThai] = React.useState("Tất cả")
-  const [chuKT, setChuKT] = React.useState("Tất cả")
+  const [hangTau, setHangTau] = React.useState("Tất cả")
   const [kichCo, setKichCo] = React.useState("Tất cả")
-  const [phanLoaiContainer, setPhanLoaiContainer] = React.useState("Tất cả")
+  const [tinhTrang, setTinhTrang] = React.useState("Tất cả")
+  const [loaiCont, setLoaiCont] = React.useState("Tất cả")
   const [payer, setPayer] = React.useState("Tất cả")
 
-  // class chung cho chiều cao input/select -> đảm bảo bằng nhau
   const fieldClass =
     "h-9 rounded-lg border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] text-xs bg-white"
 
@@ -72,24 +72,24 @@ export function Filters({ onFilterChange }: FiltersProps) {
       dateFrom: effectiveDateFrom,
       dateTo: effectiveDateTo,
       trangThai: trangThai === "Tất cả" ? undefined : trangThai,
+      hangTau: hangTau === "Tất cả" ? undefined : hangTau,
       kichCo: kichCo === "Tất cả" ? undefined : kichCo,
+      tinhTrang: tinhTrang === "Tất cả" ? undefined : tinhTrang,
+      loaiCont: loaiCont === "Tất cả" ? undefined : loaiCont,
       payer: payer === "Tất cả" ? undefined : payer,
     })
   }
 
   return (
     <Card className="border border-gray-200 rounded-xl shadow-sm overflow-hidden h-60">
-      {/* giảm padding top/bottom để sát card hơn */}
       <div className="p-3 pb-10 relative mt-[-15]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <fieldset className="border border-gray-300 rounded-lg bg-gray-50/50 shadow-sm">
             <legend className="ml-3 px-2 text-xs font-semibold text-[#2c86ff]">
               Lọc theo thời gian
             </legend>
-            {/* giảm pt/pb + space-y cho gọn */}
             <div className="px-3 pb-5 pt-0 space-y-1.5">
               <Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as any)}>
-                {/* giảm mt-6 -> mt-3 để tab sát legend/card hơn */}
                 <TabsList className="grid grid-cols-4 h-9 bg-white mt-6 p-0.5 rounded-lg w-full shadow-sm">
                   <TabsTrigger
                     value="day"
@@ -226,31 +226,31 @@ export function Filters({ onFilterChange }: FiltersProps) {
             <div className="px-3 pb-2 pt-1 space-y-1.5">
               <div className="grid grid-cols-3 gap-2">
                 <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-600">Trạng thái</Label>
+                  <Label className="text-xs font-medium text-gray-600">Tình trạng container</Label>
                   <Select value={trangThai} onValueChange={setTrangThai}>
                     <SelectTrigger className={`${fieldClass} w-36`}>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Tất cả">Tất cả</SelectItem>
-                      <SelectItem value="Vệ sinh">Vệ sinh</SelectItem>
-                      <SelectItem value="Sửa chữa">Sửa chữa</SelectItem>
+                      <SelectItem value="D">D</SelectItem>
+                      <SelectItem value="E">E</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-1">
                   <Label className="text-xs font-medium text-gray-600">Hãng tàu</Label>
-                  <Select value={chuKT} onValueChange={setChuKT}>
+                  <Select value={hangTau} onValueChange={setHangTau}>
                     <SelectTrigger className={`${fieldClass} w-36`}>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Tất cả">Tất cả</SelectItem>
+                      <SelectItem value="NSL">NSL</SelectItem>
+                      <SelectItem value="DYL">DYL</SelectItem>
                       <SelectItem value="CMA">CMA</SelectItem>
                       <SelectItem value="MSC">MSC</SelectItem>
-                      <SelectItem value="ZIM">ZIM</SelectItem>
-                      <SelectItem value="MAE">MAE</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -263,8 +263,7 @@ export function Filters({ onFilterChange }: FiltersProps) {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Tất cả">Tất cả</SelectItem>
-                      <SelectItem value="20">20&apos;</SelectItem>
-                      <SelectItem value="40">40&apos;</SelectItem>
+                      <SelectItem value="22">22&apos;</SelectItem>
                       <SelectItem value="45">45&apos;</SelectItem>
                     </SelectContent>
                   </Select>
@@ -272,27 +271,17 @@ export function Filters({ onFilterChange }: FiltersProps) {
               </div>
 
               <div className="grid grid-cols-3 gap-2">
-                <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-600">Tình trạng</Label>
-                  <Select value={phanLoaiContainer} onValueChange={setPhanLoaiContainer}>
-                    <SelectTrigger className={`${fieldClass} w-36`}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Tất cả">Tất cả</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                
 
                 <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-600">ĐTTT (Payer)</Label>
+                  <Label className="text-xs font-medium text-gray-600">Payer</Label>
                   <Select value={payer} onValueChange={setPayer}>
                     <SelectTrigger className={`${fieldClass} w-36`}>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Tất cả">Tất cả</SelectItem>
-                      <SelectItem value="Owner">Owner</SelectItem>
+                      <SelectItem value="O">O</SelectItem>
                       <SelectItem value="C">C</SelectItem>
                       <SelectItem value="D">D</SelectItem>
                       <SelectItem value="S">S</SelectItem>
@@ -304,7 +293,6 @@ export function Filters({ onFilterChange }: FiltersProps) {
           </fieldset>
         </div>
 
-        {/* kéo nút lên gần cạnh dưới card hơn */}
         <div className="absolute bottom-[-5] right-3">
           <Button
             onClick={handleSearch}

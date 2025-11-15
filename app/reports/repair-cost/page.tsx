@@ -39,7 +39,7 @@ export default function ContainersReportPage() {
             <ChevronRight className="h-4 w-4" />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
-            <BreadcrumbPage>Báo cáo danh sách container thu cược</BreadcrumbPage>
+            <BreadcrumbPage>Báo cáo vệ sinh & sửa chữa container</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
