@@ -8,37 +8,25 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card } from "@/components/ui/card"
-import type { RepairInspectionFilterParams } from "@/lib/data-client"
+import type { MRProductionFilterParams } from "@/lib/output-report-data"
 
-interface InspectionFiltersProps {
-  onFilterChange: (filters: RepairInspectionFilterParams) => void
+interface MRProductionFiltersProps {
+  onFilterChange: (filters: MRProductionFilterParams) => void
 }
 
-export function InspectionFilters({ onFilterChange }: InspectionFiltersProps) {
+export function MRProductionFilters({ onFilterChange }: MRProductionFiltersProps) {
   const [timeRange, setTimeRange] = React.useState<"day" | "month" | "quarter" | "year">("day")
-
-  // Ngày
   const [dateFrom, setDateFrom] = React.useState("")
   const [dateTo, setDateTo] = React.useState("")
-
-  // Tháng
   const [monthFrom, setMonthFrom] = React.useState("10/2025")
   const [monthTo, setMonthTo] = React.useState("11/2025")
-
-  // Quý
   const [quarter, setQuarter] = React.useState("4")
   const [quarterYear, setQuarterYear] = React.useState("2025")
-
-  // Năm
   const [yearFrom, setYearFrom] = React.useState("2025")
   const [yearTo, setYearTo] = React.useState("2025")
-
-  const [trangThai, setTrangThai] = React.useState("Tất cả")
   const [hangTau, setHangTau] = React.useState("Tất cả")
   const [kichCo, setKichCo] = React.useState("Tất cả")
-  const [tinhTrang, setTinhTrang] = React.useState("Tất cả")
-  const [loaiCont, setLoaiCont] = React.useState("Tất cả")
-  const [payer, setPayer] = React.useState("Tất cả")
+  const [tinhTrangCont, setTinhTrangCont] = React.useState("Tất cả")
 
   const fieldClass =
     "h-9 rounded-lg border-gray-300 focus-visible:ring-[#2c86ff] focus-visible:border-[#2c86ff] text-xs bg-white"
@@ -71,12 +59,9 @@ export function InspectionFilters({ onFilterChange }: InspectionFiltersProps) {
     onFilterChange({
       dateFrom: effectiveDateFrom,
       dateTo: effectiveDateTo,
-      trangThai: trangThai === "Tất cả" ? undefined : trangThai,
       hangTau: hangTau === "Tất cả" ? undefined : hangTau,
       kichCo: kichCo === "Tất cả" ? undefined : kichCo,
-      tinhTrang: tinhTrang === "Tất cả" ? undefined : tinhTrang,
-      loaiCont: loaiCont === "Tất cả" ? undefined : loaiCont,
-      payer: payer === "Tất cả" ? undefined : payer,
+      tinhTrangCont: tinhTrangCont === "Tất cả" ? undefined : tinhTrangCont,
     })
   }
 
@@ -226,20 +211,6 @@ export function InspectionFilters({ onFilterChange }: InspectionFiltersProps) {
             <div className="px-3 pb-2 pt-1 space-y-1.5">
               <div className="grid grid-cols-3 gap-2">
                 <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-600">Tình trạng container</Label>
-                  <Select value={trangThai} onValueChange={setTrangThai}>
-                    <SelectTrigger className={`${fieldClass} w-36`}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Tất cả">Tất cả</SelectItem>
-                      <SelectItem value="D">D</SelectItem>
-                      <SelectItem value="E">E</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-1">
                   <Label className="text-xs font-medium text-gray-600">Hãng tàu</Label>
                   <Select value={hangTau} onValueChange={setHangTau}>
                     <SelectTrigger className={`${fieldClass} w-36`}>
@@ -247,10 +218,12 @@ export function InspectionFilters({ onFilterChange }: InspectionFiltersProps) {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Tất cả">Tất cả</SelectItem>
-                      <SelectItem value="NSL">NSL</SelectItem>
-                      <SelectItem value="DYL">DYL</SelectItem>
-                      <SelectItem value="CMA">CMA</SelectItem>
-                      <SelectItem value="MSC">MSC</SelectItem>
+                      <SelectItem value="ZIM">ZIM</SelectItem>
+                      <SelectItem value="TES">TES</SelectItem>
+                      <SelectItem value="ALI">ALI</SelectItem>
+                      <SelectItem value="ASA">ASA</SelectItem>
+                      <SelectItem value="BAN">BAN</SelectItem>
+                      <SelectItem value="ASE">ASE</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -263,28 +236,22 @@ export function InspectionFilters({ onFilterChange }: InspectionFiltersProps) {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Tất cả">Tất cả</SelectItem>
-                      <SelectItem value="22">22&apos;</SelectItem>
-                      <SelectItem value="45">45&apos;</SelectItem>
+                      <SelectItem value="2200">2200</SelectItem>
+                      <SelectItem value="2250">2250</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2">
-                
 
                 <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-600">DTTT (Payer)</Label>
-                  <Select value={payer} onValueChange={setPayer}>
+                  <Label className="text-xs font-medium text-gray-600">Tình trạng cont</Label>
+                  <Select value={tinhTrangCont} onValueChange={setTinhTrangCont}>
                     <SelectTrigger className={`${fieldClass} w-36`}>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Tất cả">Tất cả</SelectItem>
-                      <SelectItem value="O">O</SelectItem>
-                      <SelectItem value="C">C</SelectItem>
-                      <SelectItem value="D">D</SelectItem>
-                      <SelectItem value="S">S</SelectItem>
+                      <SelectItem value="A">A</SelectItem>
+                      <SelectItem value="B">B</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

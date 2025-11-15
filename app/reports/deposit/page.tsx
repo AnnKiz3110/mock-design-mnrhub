@@ -14,17 +14,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Filters } from "./components/filters"
 import { SummaryTable } from "./components/summary-table"
 import { DataTable } from "./components/data-table"
-import { getContainerReports, getKPIStats, type FilterParams } from "@/lib/data-client"
+import { getDepositContainerReports, getDepositKPIStats, type DepositFilterParams } from "@/lib/deposit-data"
 
 export default function ContainersReportPage() {
-  const [filters, setFilters] = React.useState<FilterParams>({})
-  const [data, setData] = React.useState(getContainerReports())
+  const [filters, setFilters] = React.useState<DepositFilterParams>({})
+  const [data, setData] = React.useState(getDepositContainerReports())
 
-  const stats = React.useMemo(() => getKPIStats(data), [data])
+  const stats = React.useMemo(() => getDepositKPIStats(data), [data])
 
-  const handleFilterChange = (newFilters: FilterParams) => {
+  const handleFilterChange = (newFilters: DepositFilterParams) => {
     setFilters(newFilters)
-    setData(getContainerReports(newFilters))
+    setData(getDepositContainerReports(newFilters))
   }
 
   return (

@@ -13,151 +13,85 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, Download, Search, Settings2 } from 'lucide-react'
+import { Download, Search, Settings2 } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Card } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import type { RepairInspectionReport } from "@/lib/data-client"
+import type { MRProductionReport } from "@/lib/output-report-data"
 
-interface InspectionDataTableProps {
-  data: RepairInspectionReport[]
+interface MRProductionTableProps {
+  data: MRProductionReport[]
 }
 
-export function InspectionDataTable({ data }: InspectionDataTableProps) {
+export function MRProductionTable({ data }: MRProductionTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = React.useState("")
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
 
-  const columns: ColumnDef<RepairInspectionReport>[] = [
+  const columns: ColumnDef<MRProductionReport>[] = [
     {
-      accessorKey: "id",
-      header: "STT",
-      cell: ({ row }) => <div className="w-12 text-xs text-center">{row.getValue("id")}</div>,
-      size: 50,
+  accessorKey: "stt",
+  header: () => <div className="text-center w-full">STT</div>,
+  cell: ({ row }) => (
+    <div className="text-center w-full text-xs font-medium">
+      {row.getValue("stt")}
+    </div>
+  ),
+}
+,
+    {
+      accessorKey: "hangTau",
+      header: "Hãng tàu",
+      cell: ({ row }) => <div className="text-xs font-medium whitespace-nowrap text-center">{row.getValue("hangTau")}</div>,
     },
     {
-      accessorKey: "estimateNo",
-      header: "EstimateNo",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("estimateNo") || "-"}</div>,
+      accessorKey: "kichCo",
+      header: "Kích cỡ",
+      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("kichCo")}</div>,
     },
     {
-      accessorKey: "containerNo",
-      header: "ContainerNo",
-      cell: ({ row }) => <div className="text-xs font-medium whitespace-nowrap text-center">{row.getValue("containerNo") || "-"}</div>,
+      accessorKey: "tinhTrangCont",
+      header: "Tình trạng cont",
+      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("tinhTrangCont")}</div>,
     },
     {
-      accessorKey: "sztp",
-      header: "SZ/TP",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("sztp") || "-"}</div>,
+      accessorKey: "dttt",
+      header: "ĐTTT",
+      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("dttt") || "Owner"}</div>,
     },
     {
-      accessorKey: "oprId",
-      header: "OprID",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("oprId") || "-"}</div>,
+      accessorKey: "ngayVaoBai",
+      header: "Ngày vào bãi",
+      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("ngayVaoBai")}</div>,
     },
     {
-      accessorKey: "condition",
-      header: "Condition",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("condition") || "-"}</div>,
+      accessorKey: "ngayBaoGia",
+      header: "Ngày báo giá",
+      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("ngayBaoGia")}</div>,
     },
     {
-      accessorKey: "timeIn",
-      header: "TimeIn",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("timeIn") || "-"}</div>,
+      accessorKey: "ngayHoanTat",
+      header: "Ngày hoàn tất",
+      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("ngayHoanTat")}</div>,
     },
     {
-      accessorKey: "estimateDate",
-      header: "Estimate Date",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("estimateDate") || "-"}</div>,
+      accessorKey: "gio",
+      header: "Giờ",
+      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("gio")}</div>,
     },
     {
-      accessorKey: "vendor",
-      header: "Vendor",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("vendor") || "-"}</div>,
+      accessorKey: "soLuong",
+      header: "Số lượng",
+      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("soLuong")}</div>,
     },
     {
-      accessorKey: "approvalDate",
-      header: "Approval Date",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("approvalDate") || "-"}</div>,
-    },
-    {
-      accessorKey: "repairDate",
-      header: "Repair Date",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("repairDate") || "-"}</div>,
-    },
-    {
-      accessorKey: "completedDate",
-      header: "Completed Date",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("completedDate") || "-"}</div>,
-    },
-    {
-      accessorKey: "cancelDate",
-      header: "Cancel Date",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("cancelDate") || "-"}</div>,
-    },
-    {
-      accessorKey: "com",
-      header: "COM",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("com") || "-"}</div>,
-    },
-    {
-      accessorKey: "loc",
-      header: "LOC",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("loc") || "-"}</div>,
-    },
-    {
-      accessorKey: "dam",
-      header: "DAM",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("dam") || "-"}</div>,
-    },
-    {
-      accessorKey: "rep",
-      header: "REP",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("rep") || "-"}</div>,
-    },
-    {
-      accessorKey: "length",
-      header: "Length",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("length")}</div>,
-    },
-    {
-      accessorKey: "width",
-      header: "Width",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("width")}</div>,
-    },
-    {
-      accessorKey: "quantity",
-      header: "Quantity",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("quantity")}</div>,
-    },
-    {
-      accessorKey: "hours",
-      header: "Hours",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("hours")}</div>,
-    },
-    {
-      accessorKey: "laborCost",
-      header: "Labor Cost",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("laborCost")}</div>,
-    },
-    {
-      accessorKey: "mateCost",
-      header: "Mate Cost",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("mateCost")}</div>,
-    },
-    {
-      accessorKey: "total",
-      header: "Total",
-      cell: ({ row }) => <div className="text-xs font-semibold whitespace-nowrap text-center">{row.getValue("total")}</div>,
-    },
-    {
-      accessorKey: "payer",
-      header: "Payer",
-      cell: ({ row }) => <div className="text-xs whitespace-nowrap text-center">{row.getValue("payer") || "-"}</div>,
+      accessorKey: "tongTien",
+      header: "Tổng tiền",
+      cell: ({ row }) => <div className="text-xs font-semibold whitespace-nowrap text-center">{row.getValue("tongTien")}</div>,
     },
   ]
 
@@ -180,31 +114,28 @@ export function InspectionDataTable({ data }: InspectionDataTableProps) {
     },
     initialState: {
       pagination: {
-        pageSize: 10,
+        pageSize: 15,
       },
     },
   })
 
-  // Calculate subtotals and totals
-  const calculateSubtotals = () => {
-    const subtotals = {
-      hours: 0,
-      laborCost: 0,
-      mateCost: 0,
-      total: 0
+  const calculateTotals = () => {
+    const totals = {
+      gio: 0,
+      soLuong: 0,
+      tongTien: 0
     }
 
     data.forEach(row => {
-      subtotals.hours += row.hours
-      subtotals.laborCost += row.laborCost
-      subtotals.mateCost += row.mateCost
-      subtotals.total += row.total
+      totals.gio += row.gio
+      totals.soLuong += row.soLuong
+      totals.tongTien += row.tongTien
     })
 
-    return subtotals
+    return totals
   }
 
-  const subtotals = calculateSubtotals()
+  const totals = calculateTotals()
 
   return (
     <Card className="rounded-xl border shadow-sm overflow-hidden">
@@ -214,7 +145,7 @@ export function InspectionDataTable({ data }: InspectionDataTableProps) {
           <div className="relative">
             <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
             <Input
-              placeholder="Tìm container, estimate..."
+              placeholder="Tìm hãng tàu..."
               value={globalFilter ?? ""}
               onChange={(e) => setGlobalFilter(e.target.value)}
               className="pl-8 focus-visible:ring-[#2c86ff] h-9 text-sm"
@@ -314,10 +245,7 @@ export function InspectionDataTable({ data }: InspectionDataTableProps) {
                     ))}
                   </TableRow>
                 ))}
-                {/* Subtotal Row */}
-               
-                {/* Grand Total Row */}
-              
+           
               </>
             ) : (
               <TableRow>

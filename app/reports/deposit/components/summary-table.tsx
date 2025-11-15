@@ -5,8 +5,8 @@ import { Card } from "@/components/ui/card"
 interface SummaryTableProps {
   stats: {
     total: number
-    veSinh: number
-    suaChua: number
+    slCont: number
+    tienCuoc: number
   }
 }
 
@@ -62,7 +62,7 @@ export function SummaryTable({ stats }: SummaryTableProps) {
                   </div>
                 </td>
                 <td className="px-6 py-5 text-center border-r border-gray-200">
-                  <div className="text-1xl font-bold text-[#2c86ff]">{stats.veSinh}</div>
+                  <div className="text-1xl font-bold text-[#2c86ff]">{stats.slCont}</div>
                 </td>
                 <td className="px-6 py-5 text-center border-r border-gray-200">
                   <div className="text-1xl font-bold text-[#2c86ff]">20</div>
@@ -86,7 +86,7 @@ export function SummaryTable({ stats }: SummaryTableProps) {
                   </div>
                 </td>
                 <td className="px-6 py-5 text-center border-r border-gray-200">
-                  <div className="text-1xl font-bold text-orange-500">{stats.suaChua}</div>
+                  <div className="text-1xl font-bold text-orange-500">{stats.tienCuoc}</div>
                 </td>
                 <td className="px-6 py-5 text-center border-r border-gray-200">
                  <div className="text-1xl font-bold text-orange-500">1300</div>
@@ -110,10 +110,10 @@ export function SummaryTable({ stats }: SummaryTableProps) {
                   </div>
                 </td>
                 <td className="px-6 py-5 text-center border-r border-gray-300">
-                  <div className="text-1xl font-bold text-gray-800">60</div>
+                  <div className="text-1xl font-bold text-gray-800">8,162</div>
                 </td>
                 <td className="px-6 py-5 text-center border-r border-gray-300">
-                  <div className="text-1xl font-bold text-gray-800">26000</div>
+                  <div className="text-1xl font-bold text-gray-800">26,000</div>
                 </td>
                 <td className="px-6 py-5 text-center">
                   <div className="text-1xl font-bold text-gray-800">400  </div>

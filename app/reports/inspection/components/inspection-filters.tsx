@@ -296,7 +296,7 @@ export function InspectionFilters({ onFilterChange }: InspectionFiltersProps) {
                 </div>
 
                 <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-600">Payer</Label>
+                  <Label className="text-xs font-medium text-gray-600">ĐTTT (Payer)</Label>
                   <Select value={payer} onValueChange={setPayer}>
                     <SelectTrigger className={`${fieldClass} w-36`}>
                       <SelectValue />
